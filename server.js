@@ -15,6 +15,7 @@ import parseHttpRequest from './lib/server/parse-http.js'
 import parseUdpRequest from './lib/server/parse-udp.js'
 import parseWebSocketRequest from './lib/server/parse-websocket.js'
 
+
 const debug = Debug('bittorrent-tracker:server')
 const hasOwnProperty = Object.prototype.hasOwnProperty
 
@@ -266,14 +267,15 @@ class Server extends EventEmitter {
           // const infoHashes = Object.keys(this.torrents)
           infoHashes.forEach(infoHash => {
             const torrent = this.torrents[infoHash]
-            overviewHtml += ' IH: '+torrent.infoHash+' <br >'
+            overviewHtml += ' IH: '+torrent.infoHash+'<br >'
             // overviewHtml += ' Cache: '+JSON.stringify(torrent.peers.cache)
             for (const [key1, value1] of Object.entries(torrent.peers.cache)) {
               // overviewHtml += ' Cache: '+JSON.stringify(value1.value)+'<hr>'
-              overviewHtml += ' Peer: '
-              overviewHtml += ' PeerId: '+hex2bin(value1.value.peerId)
+              // overviewHtml += ' Peer: '
+              overviewHtml += ' PeerId: '+hex2bin(value1.value.peerId)+' | '
               for (const [key2, value2] of Object.entries(value1.value)) {
                 // value
+                if (key2 !== 'peerId')
                 overviewHtml += ' '+key2+': '+JSON.stringify(value2)+' | '
                 //console.log(`${key}: ${value}`);
                 // overviewHtml += ' PeerId: '+hex2a(value.value.peerId)+' '+value.value.peerId
@@ -298,9 +300,9 @@ class Server extends EventEmitter {
               Peers Seeding & Leeching: ${stats.peersSeederAndLeecher} | 
               IPv4 Peers: ${stats.peersIPv4} | 
               IPv6 Peers: ${stats.peersIPv6} | 
-              <h3>Overview:</h3>
+              <h5>Overview:</h5>
               ${overviewHtml}
-              <h3>Clients:</h3>
+              <h5>Clients:</h5>
               ${printClients(stats.clients)}
                 <hr>
               ${JSON.stringify(this.torrents)}
