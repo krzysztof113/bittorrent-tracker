@@ -291,13 +291,13 @@ class Server extends EventEmitter {
           } else if (req.url === '/stats') {
             res.setHeader('Content-Type', 'text/html')
             res.end(`
-              <h1>${stats.torrents} torrents (${stats.activeTorrents} active)</h1>
-              <h2>Connected Peers: ${stats.peersAll}</h2>
-              <h3>Peers Seeding Only: ${stats.peersSeederOnly}</h3>
-              <h3>Peers Leeching Only: ${stats.peersLeecherOnly}</h3>
-              <h3>Peers Seeding & Leeching: ${stats.peersSeederAndLeecher}</h3>
-              <h3>IPv4 Peers: ${stats.peersIPv4}</h3>
-              <h3>IPv6 Peers: ${stats.peersIPv6}</h3>
+              ${stats.torrents} torrents (${stats.activeTorrents} active) | 
+              Connected Peers: ${stats.peersAll} |
+              Peers Seeding Only: ${stats.peersSeederOnly} | 
+              Peers Leeching Only: ${stats.peersLeecherOnly} | 
+              Peers Seeding & Leeching: ${stats.peersSeederAndLeecher} | 
+              IPv4 Peers: ${stats.peersIPv4} | 
+              IPv6 Peers: ${stats.peersIPv6} | 
               <h3>Overview:</h3>
               ${overviewHtml}
               <h3>Clients:</h3>
